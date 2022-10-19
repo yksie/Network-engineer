@@ -6,252 +6,484 @@
 
 
 
-## Задание
+## Задачи
 
-##### [Часть 1. Создание сети и настройка сети.](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-1-%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81%D0%B5%D1%82%D0%B8-%D0%B8-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-%D1%81%D0%B5%D1%82%D0%B8-1)
+##### [Часть 1. Настройка топологии и конфигурация основных параметров маршрутизатора и коммутатора](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-1-%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81%D0%B5%D1%82%D0%B8-%D0%B8-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-%D1%81%D0%B5%D1%82%D0%B8-1)
 
-##### [Часть 2. Настройка базовых параметров сетевых устройств](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-2-%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B-%D0%BC%D0%B0%D1%81-%D0%B0%D0%B4%D1%80%D0%B5%D1%81%D0%BE%D0%B2-%D0%BA%D0%BE%D0%BC%D0%BC%D1%83%D1%82%D0%B0%D1%82%D0%BE%D1%80%D0%B0)
+##### [Часть 2. Ручная настройка IPv6-адресов](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-2-%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B-%D0%BC%D0%B0%D1%81-%D0%B0%D0%B4%D1%80%D0%B5%D1%81%D0%BE%D0%B2-%D0%BA%D0%BE%D0%BC%D0%BC%D1%83%D1%82%D0%B0%D1%82%D0%BE%D1%80%D0%B0)
 
+##### [Часть 3. Проверка сквозного подключения](https:
 
 ![](https://github.com/yksie/Network-engineer/blob/main/lab04(lec08)/1.jpg)
 
 > Собранная сеть в CPT
 
-### Часть 1. Создание сети и настройка сети.
 
-##### Необходимо настроить IP-адреса устройств, переименовать устройства, назначить пароли для консоли, vty и доступа к привелегированному режиму EXEC
 
-Switch>ena
-Switch#conf t
+Шаблон по умолчанию менеджера базы данных 2960 Switch Database Manager (SDM) не поддерживает IPv6. Перед назначением IPv6-адреса SVI VLAN 1 может понадобиться выполнение команды sdm prefer dual-ipv4-and-ipv6 default для включения IPv6-адресации.
+
+Шаблон default bias, который по умолчанию используется диспетчером SDM (диспетчер базы данных коммутатора), не предоставляет возможностей адресации IPv6. Убедитесь, что SDM использует шаблон dual-ipv4-and-ipv6 или lanbase-routing. Новый шаблон будет использоваться после перезагрузки. 
+
+S1# **show sdm prefer**
+
+The current template is "default" template.
+
+Чтобы установить шаблон dual-ipv4-and-ipv6 в качестве шаблона SDM по умолчанию, выполните следующие действия:
+
+S1# **configure terminal**
+
+S1(config)# **sdm prefer dual-ipv4-and-ipv6 default**
+
+S1(config)# **end**
+
+S1# **reload**
+
+S1#**sh sdm prefer**
+
+The current template is "dual-ipv4-and-ipv6 default" template.
+
+### Часть 1. Настройка топологии и конфигурация основных параметров маршрутизатора и коммутатора
+
+##### Настройка маршрутизатора
+
+Router(config)#**hostname R1**
+
+##### Настройка коммутатора
+
+S1# **configure terminal**
+
+Switch(config)# **hostname S1**
+
+S1(config)# **sdm prefer dual-ipv4-and-ipv6 default**
+
+S1(config)# **end**
+
+S1# **reload**
+
+
+### Часть 2. Ручная настройка IPv6-адресов
+
+##### Назначение IPv6-адреса интерфейсам Ethernet на R1
+
+Настройка глобальных IPv6-адресов, указанных в таблице адресации обоим интерфейсам Ethernet на R1.
+
+R1(config)#**int gig**
+
+R1(config)#**int gigabitEthernet 0/0/0**
+
+R1(config-if)#**ipv6 address 2001:db8:acad:a ::1/64**
+
+R1(config-if)#**no shut**
+
+R1(config-if)#
+
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/0, changed state to up
+
+R1(config)#**int gi**
+
+R1(config)#**int gigabitEthernet 0/0/1**
+
+R1(config-if)#**ipv6 address 2001:db8:acad:1::1/64**
+
+R1(config-if)#
+
+R1(config-if)#**no shut**
+
+R1(config-if)#
+
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1, changed state to up
+
+R1#**sh ipv6 int br**
+
+GigabitEthernet0/0/0 [up/up]
+
+FE80::2E0:B0FF:FE0E:8401
+
+2001:DB8:ACAD:A::1
+
+GigabitEthernet0/0/1 [up/up]
+
+FE80::2E0:B0FF:FE0E:8402
+
+2001:DB8:ACAD:1::1
+
+Vlan1 [administratively down/down]
+
+Проверка, назначен ли каждому интерфейсу корректный индивидуальный IPv6-адрес.
+
+R1#**sh ipv6 int br**
+
+GigabitEthernet0/0/0 [up/up]
+
+FE80::2E0:B0FF:FE0E:8401
+
+2001:DB8:ACAD:A::1
+
+GigabitEthernet0/0/1 [up/up]
+
+FE80::2E0:B0FF:FE0E:8402
+
+2001:DB8:ACAD:1::1
+
+Vlan1 [administratively down/down]
+
+Unassigned
+
+Настройка локальных адресов канала на каждом интерфейсе Ethernet на R1.
+
+R1>
+
+R1>**en**
+
+R1#**conf t**
 
 Enter configuration commands, one per line. End with CNTL/Z.
 
-Switch(config)#int vlan 1
+R1(config)#**int g**
 
-Switch(config-if)#ip addr 192.168.1.11 255.255.255.0
+R1(config)#**int gigabitEthernet 0**
 
-Switch(config-if)#no shutdown
+R1(config)#**int gigabitEthernet 0/0/0**
 
-Switch#sh ip int vlan 1
+R1(config-if)#**ipv6 addr**
+
+R1(config-if)#**ipv6 address fe80::1 l**
+
+R1(config-if)#**ipv6 address fe80::1 link-local**
+
+R1(config-if)#**exi**
+
+R1(config)#**int g**
+
+R1(config)#**int gigabitEthernet 0/0/1**
+
+R1(config-if)#**ipv6 address fe80::1 link-local**
+
+Проверка, что локальный адрес связи изменен на fe80::1.  
+
+R1(config-if)#**do sh ipv6 int br**
+
+GigabitEthernet0/0/0 [up/up]
+
+FE80::1
+
+2001:DB8:ACAD:A::1
+
+GigabitEthernet0/0/1 [up/up]
+
+FE80::1
+
+2001:DB8:ACAD:1::1
+
+Vlan1 [administratively down/down]
+
+unassigned
+
+R1(config-if)#
+
+##### Какие группы многоадресной рассылки назначены интерфейсу G0/0?
+
+R1(config)#do sh ipv6 int g0/0/0
+
+GigabitEthernet0/0/0 is up, line protocol is up
+
+IPv6 is enabled, link-local address is FE80::1
+
+No Virtual link-local address(es):
+
+Global unicast address(es):
+
+2001:DB8:ACAD:A::1, subnet is 2001:DB8:ACAD:A::/64
+
+Joined group address(es):
+
+Группы многоадресной рассылки:
+
+__FF02::1__
+
+__FF02::1:FF00:1__
+
+##### Активируйте IPv6-маршрутизацию на R1.
+
+В командной строке на PC-B введите команду ipconfig, чтобы получить данные IPv6-адреса, назначенного интерфейсу ПК.
+
+FastEthernet0 Connection:(default port)
+
+FastEthernet0 Connection:(default port)
+
+   Connection-specific DNS Suffix..: 
+   
+   Link-local IPv6 Address.........: FE80::2D0:97FF:FE09:DC6C
+   
+   IPv6 Address....................: ::
+   
+   IPv4 Address....................: 0.0.0.0
+   
+   Subnet Mask.....................: 0.0.0.0
+   
+   Default Gateway.................: ::
+   
+   0.0.0.0с:
+
+Назначен ли глобальный IPv6-адрес сетевой интерфейсной карте (NIC) на PC-B?
+
+__нет__
+
+Активируйте IPv6-маршрутизацию на R1 с помощью команды IPv6 unicast-routing
+
+R1(config)#**ipv6 unicast-routing**
+
+Теперь, когда R1 входит в группу многоадресной рассылки всех маршрутизаторов, еще раз введите команду ipconfig на PC-B. Проверьте данные IPv6-адреса.
+
+C:\>ipconfig
+
+FastEthernet0 Connection:(default port)
+
+   Connection-specific DNS Suffix..: 
+   
+   Link-local IPv6 Address.........: FE80::2D0:97FF:FE09:DC6C
+   
+   IPv6 Address....................: 2001:DB8:ACAD:A:2D0:97FF:FE09:DC6C
+   
+   IPv4 Address....................: 0.0.0.0
+   
+   Subnet Mask.....................: 0.0.0.0
+   
+   Default Gateway.................: FE80::1
+   
+   0.0.0.0 
+
+Почему PC-B получил глобальный префикс маршрутизации и идентификатор подсети, которые вы настроили на R1?
+
+__IPv6 на PC должен стоять в автоматическом режиме.__
+
+__PC-B осуществил запрос параметров в сети.__
+
+__PC-B получил первые 64 бит от R1.__
+
+__PC-B получил последние 64 бит от Link-local PC-B.__
+
+__PC-B получил шлюз по умолчанию от R1__
+
+##### Назначьте IPv6-адреса интерфейсу управления (SVI) на S1.
+
+Назначьте адрес IPv6 для S1. Также назначьте этому интерфейсу локальный адрес канала.
+
+S1#**sh ipv6 int br**
+
+FastEthernet0/1 [up/up]
+
+FastEthernet0/2 [up/up]
+
+FastEthernet0/3 [down/down]
+
+FastEthernet0/4 [down/down]
+
+-
+
+-
+
+-
+
+FastEthernet0/24 [down/down]
+
+GigabitEthernet0/1 [down/down]
+
+GigabitEthernet0/2 [down/down]
+
+Vlan1 [up/up]
+
+FE80::206:2AFF:FEBB:7A60
+
+S1#**en**
+
+S1#**conf t**
+
+Enter configuration commands, one per line. End with CNTL/Z.
+
+S1(config)#
+
+S1(config)#**int vlan 1**
+
+S1(config-if)#**ipv6 add**
+
+S1(config-if)#**ipv6 address 2001:db8:acad:1::b/64**
+
+S1(config-if)#**no shut**
+
+S1(config-if)#**exit**
+
+S1(config)#**exit**
+
+S1#
+
+%SYS-5-CONFIG_I: Configured from console by console
+
+S1#
+
+S1#**sh ipv6 int br**
+
+FastEthernet0/1 [up/up]
+
+FastEthernet0/2 [up/up]
+
+-
+
+-
+
+-
+
+FastEthernet0/24 [down/down]
+
+GigabitEthernet0/1 [down/down]
+
+GigabitEthernet0/2 [down/down]
+
+Vlan1 [up/up]
+
+FE80::206:2AFF:FEBB:7A60
+
+2001:DB8:ACAD:1::B
+
+S1#
+
+Проверьте правильность назначения IPv6-адресов интерфейсу управления с помощью команды show ipv6 interface vlan1.
+
+S1#
+
+S1#**sh ipv6 int vlan 1**
 
 Vlan1 is up, line protocol is up
 
-Internet address is 192.168.1.11/24
+IPv6 is enabled, link-local address is FE80::206:2AFF:FEBB:7A60
 
-Broadcast address is 255.255.255.255
+No Virtual link-local address(es):
 
-Switch#conf t
+Global unicast address(es):
 
-Enter configuration commands, one per line. End with CNTL/Z.
+2001:DB8:ACAD:1::B, subnet is 2001:DB8:ACAD:1::/64
 
-Switch(config)#line vty 0 15
+Joined group address(es):
 
-Switch(config-line)#password cisco
+FF02::1
 
-Switch(config-line)#login
+FF02::1:FF00:B
 
-Switch(config-line)#end
+FF02::1:FFBB:7A60
 
-Switch#
+MTU is 1500 bytes
 
-Switch#conf t
+ICMP error messages limited to one every 100 milliseconds
 
-Enter configuration commands, one per line. End with CNTL/Z.
+ICMP redirects are enabled
 
-Switch(config)#hostname S1
+ICMP unreachables are sent
 
-S1(config)#
+Output features: Check hwidb
 
-S1(config)#line ?
+ND DAD is enabled, number of DAD attempts: 1
 
-<0-16> First Line number
+ND reachable time is 30000 milliseconds
 
-console Primary terminal line
+ND NS retransmit interval is 1000 milliseconds
 
-vty Virtual terminal
+##### Назначьте компьютерам статические IPv6-адреса.
 
-S1(config)#line console ?
+Откройте окно Свойства Ethernet для каждого ПК и назначьте адресацию IPv6.
 
-<0-0> First Line number
+![](https://github.com/yksie/Network-engineer/blob/main/lab04(lec08)/2.jpg)
+![](https://github.com/yksie/Network-engineer/blob/main/lab04(lec08)/3.jpg)
 
-S1(config)#line console 0
+Убедитесь, что оба компьютера имеют правильную информацию адреса IPv6. Каждый компьютер должен иметь два глобальных адреса IPv6: один статический и один SLACC
 
-S1(config-line)#password cisco
+PC-A:
 
-S1(config-line)#login
+C:\>**ipconfig**
 
-S1(config-line)#end
+FastEthernet0 Connection:(default port)
 
-S1#
 
-S1#conf t
+Connection-specific DNS Suffix..: 
 
-Enter configuration commands, one per line. End with CNTL/Z.
+Link-local IPv6 Address.........: FE80::2
 
-S1(config)#
+IPv6 Address....................: 2001:DB8:ACAD:1::3
 
-S1(config)#enable secret class
+IPv4 Address....................: 0.0.0.0
 
-S1(config)#
+Subnet Mask.....................: 0.0.0.0
 
-S1(config)#exit
+Default Gateway.................: ::
 
-S1#
+0.0.0.0
 
-S1#conf t
+PC-B:
 
-Enter configuration commands, one per line. End with CNTL/Z.
+C:\>**ipconfig**
 
-S1(config)#
+FastEthernet0 Connection:(default port)
 
-S1(config)#enable secret class
 
-S1(config)#
+Connection-specific DNS Suffix..: 
 
-S1(config)#exit
+Link-local IPv6 Address.........: FE80::2D0:97FF:FE09:DC6C
 
-S1#
+IPv6 Address....................: 2001:DB8:ACAD:A::3
 
-По аналогии настраиваем второй коммутатор
+IPv4 Address....................: 0.0.0.0
 
-Switch>ena
+Subnet Mask.....................: 0.0.0.0
 
-Switch#conf t
+Default Gateway.................: ::
 
-Enter configuration commands, one per line. End with CNTL/Z.
+0.0.0.0
 
-Switch(config)#int vlan 1
+### Часть 3. Проверка сквозного подключения
 
-Switch(config-if)#ip addr 192.168.1.12 255.255.255.0
+С PC-A отправьте эхо-запрос на FE80::1. Это локальный адрес канала, назначенный G0/1 на R1:
 
-Switch(config-if)#no shutdown
+![](https://github.com/yksie/Network-engineer/blob/main/lab04(lec08)/4.jpg)
 
-Switch(config-if)#
+Отправьте эхо-запрос на интерфейс управления S1 с PC-A:
 
-%LINK-5-CHANGED: Interface Vlan1, changed state to up
+![](https://github.com/yksie/Network-engineer/blob/main/lab04(lec08)/5.jpg)
 
-Switch#sh int vlan 1
+Введите команду tracert на PC-A, чтобы проверить наличие сквозного подключения к PC-B:
 
-Vlan1 is up, line protocol is up
+![](https://github.com/yksie/Network-engineer/blob/main/lab04(lec08)/6.jpg) 
 
-Hardware is CPU Interface, address is 00e0.a344.dc73 (bia 00e0.a344.dc73)
+С PC-B отправьте эхо-запрос на PC-A:
 
-Internet address is 192.168.1.12/24
+![](https://github.com/yksie/Network-engineer/blob/main/lab04(lec08)/7.jpg)
 
+С PC-B отправьте эхо-запрос на локальный адрес канала G0/0 на R1:
 
-### Часть 2. Изучение таблицы МАС-адресов коммутатора
+![](https://github.com/yksie/Network-engineer/blob/main/lab04(lec08)/8.jpg)
 
-##### Откройте командную строку на PC-A и PC-B и введите команду ipconfig /all.
+##### Вопросы для повторения
 
-![](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/2.png)
+1.	Почему обоим интерфейсам Ethernet на R1 можно назначить один и тот же локальный адрес канала — FE80::1?
 
-![](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/3.png)
+Каждый интерфейс маршрутизатора относится к отдельной сети. Пакеты с локальным адресом канала никогда не выходят за пределы локальной сети, а значит, для обоих интерфейсов можно указывать один и тот же локальный адрес канала.
 
-Назовите физические адреса адаптера Ethernet. 
+2.	Какой идентификатор подсети в индивидуальном IPv6-адресе 2001:db8:acad::aaaa:1234/64?
 
-MAC-адрес компьютера PC-A: __0060.70AD.2436__
+первые 64 бит - префикс
 
-MAC-адрес компьютера PC-B: __00D0.D39E.CB57__
+из них:
 
-Закройте окно командной строки.
+48 – префикс 
 
-a.	Подключитесь к коммутаторам S1 и S2 через консоль и введите команду show interface F0/1 на каждом коммутаторе.
+16 – идентификатор подсети
 
-Откройте окно конфигурации
+вторые 64 бит - идентификатор интерфейса
 
-Вопросы:
+IPv6 адрес - 2001:db8:acad:0000:0000:0000:aaaa:1234
 
-Назовите адреса оборудования во второй строке выходных данных команды (или зашитый адрес — bia).
+Смотрим на четвертый хекстет.
 
-МАС-адрес коммутатора S1 Fast Ethernet 0/1: __000c.cf77.5601__
+Ответ: 0000
 
-МАС-адрес коммутатора S2 Fast Ethernet 0/1: __000b.be93.5801__
-
-Закройте окно настройки.
-
-##### Просмотрите таблицу МАС-адресов коммутатора.
-
-Подключитесь к коммутатору S2 через консоль и просмотрите таблицу МАС-адресов до и после тестирования сетевой связи с помощью эхо-запросов.
-
-a.	Подключитесь к коммутатору S2 через консоль и войдите в привилегированный режим EXEC.
-
-Откройте окно конфигурации
-
-b.	В привилегированном режиме EXEC введите команду show mac address-table и нажмите клавишу ввода.
-
-S2# show mac address-table
-
-Даже если сетевая коммуникация в сети не происходила (т. е. если команда ping не отправлялась), коммутатор может узнать МАС-адреса при подключении к ПК и другим коммутаторам.
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/4.png)
-
-Записаны ли в таблице МАС-адресов какие-либо МАС-адреса?
-
-__Есть. Соседний коммутатор.__
-
-Если вы не записали МАС-адреса сетевых устройств в шаге 1, как можно определить, каким устройствам принадлежат МАС-адреса, используя только выходные данные команды show mac address-table? Работает ли это решение в любой ситуации?
-
-__По первой половине адреса (три байта)__
-
-##### Очистите таблицу МАС-адресов коммутатора S2 и снова отобразите таблицу МАС-адресов.
-В привилегированном режиме EXEC введите команду clear mac address-table dynamic и нажмите клавишу Enter.
-
-S2# clear mac address-table dynamic
-
-Снова быстро введите команду show mac address-table.
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/5.png)
-
-Указаны ли в таблице МАС-адресов адреса для VLAN 1? Указаны ли другие МАС-адреса?
-
-Через 10 секунд введите команду show mac address-table и нажмите клавишу ввода. Появились ли в таблице МАС-адресов новые адреса?
-
-__Нет, все также, баг CPT (в жизни пропадет)__
-
-##### С компьютера PC-B отправьте эхо-запросы устройствам в сети и просмотрите таблицу МАС-адресов коммутатора.
-
-На компьютере PC-B откройте командную строку и еще раз введите команду arp -a.
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/6.png)
-
-Не считая адресов многоадресной и широковещательной рассылки, сколько пар IP- и МАС-адресов устройств было получено через протокол ARP?
-
-__0__
-
-Из командной строки PC-B отправьте эхо-запросы на компьютер PC-A, а также коммутаторы S1 и S2.
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/7.png)
-
-От всех ли устройств получены ответы? Если нет, проверьте кабели и IP-конфигурации.
-
-__От всех были получены ответы__
-
-Подключившись через консоль к коммутатору S2, введите команду show mac address-table
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/8.png)
-
-Добавил ли коммутатор в таблицу МАС-адресов дополнительные МАС-адреса? Если да, то какие адреса и устройства?
-
-__Верхний остался. Это S2
-Вторая строчка - Это S1
-Два нижних – два РС.__
-
-
-На компьютере PC-B откройте командную строку и еще раз введите команду arp -a.
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/9.png)
-
-Появились ли в ARP-кэше компьютера PC-B дополнительные записи для всех сетевых устройств, которым были отправлены эхо-запросы?
-
-__Да__
-
-Закройте командную строку.
-
-##### Вопрос для повторения
-
-В сетях Ethernet данные передаются на устройства по соответствующим МАС-адресам. Для этого коммутаторы и компьютеры динамически создают ARP-кэш и таблицы МАС-адресов. Если компьютеров в сети немного, эта процедура выглядит достаточно простой. Какие сложности могут возникнуть в крупных сетях?
-
-__Засорение широковещательным трафиком.__
 
 
 
