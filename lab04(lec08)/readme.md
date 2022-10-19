@@ -2,22 +2,20 @@
 
 ## Лабораторная работа. Настройка IPv6-адресов на сетевых устройствах
 
-![](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/1.png)
-> Топология сети
+![](https://github.com/yksie/Network-engineer/blob/main/lab04(lec08)/0.jpg)
 
 
-| Устройство  | Интерфейс   | IP-адрес| Маска подсети |
-| :------------ |:---------------:|:---------------:|-----:|
-| S1      | VLAN 1 | 192.168.1.11 | 255.255.255.0 |
-| S2      | VLAN 1 | 192.168.1.12 | 255.255.255.0 |
-| PC-A      | NIC       |  192.168.1.1 | 255.255.255.0 |
-| PC-B      | NIC       |  192.168.1.2 | 255.255.255.0 |
 
 ## Задание
 
 ##### [Часть 1. Создание сети и настройка сети.](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-1-%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81%D0%B5%D1%82%D0%B8-%D0%B8-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-%D1%81%D0%B5%D1%82%D0%B8-1)
 
 ##### [Часть 2. Настройка базовых параметров сетевых устройств](https://github.com/yksie/Network-engineer/blob/main/lab02(lec4)/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-2-%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B-%D0%BC%D0%B0%D1%81-%D0%B0%D0%B4%D1%80%D0%B5%D1%81%D0%BE%D0%B2-%D0%BA%D0%BE%D0%BC%D0%BC%D1%83%D1%82%D0%B0%D1%82%D0%BE%D1%80%D0%B0)
+
+
+![](https://github.com/yksie/Network-engineer/blob/main/lab04(lec08)/1.jpg)
+
+> Собранная сеть в CPT
 
 ### Часть 1. Создание сети и настройка сети.
 
