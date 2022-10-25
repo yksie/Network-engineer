@@ -30,7 +30,7 @@
 
 ##### Выполните инициализацию и перезагрузку маршрутизатора и коммутатора.
 
-R1#sh ip int br
+R1#**sh ip int br**
 
 Interface IP-Address OK? Method Status Protocol 
 
@@ -42,7 +42,7 @@ Vlan1 unassigned YES unset up down
 
 R1#
 
-R1#reload
+R1#**reload**
 
 System configuration has been modified. Save? [yes/no]:y
 
@@ -54,7 +54,7 @@ Proceed with reload? [confirm]
 
 Initializing Hardware ...
 
-S1#sh ip int br
+S1#**sh ip int br**
 
 Interface              IP-Address      OK? Method Status                Protocol 
 
@@ -90,7 +90,7 @@ Vlan1                  192.168.1.11    YES manual up                    up
 
 
 
-S1#reload
+S1#**reload**
 
 System configuration has been modified. Save? [yes/no]:y
 
@@ -123,7 +123,7 @@ i.	Настройте и активируйте на маршрутизатор�
 
 j.	Сохраните текущую конфигурацию в файл загрузочной конфигурации.
 
-R1#sh run
+R1#**sh run**
 
 Building configuration...
 
@@ -221,7 +221,7 @@ Warning!!!
 
 Warning!!!
 
-Private territory of 6th homework
+Private territory of 5th homework
 
 Strongly recoomend to leave the area
 
@@ -287,21 +287,21 @@ b.	Настройте для PC-A шлюз по умолчанию.
 
 #### Настройте аутентификацию устройств.
 
-R1(config)#ip domain-n
+R1(config)#**ip domain-n**
 
-R1(config)#ip domain-name ?
+R1(config)#**ip domain-name ?**
 
 WORD Default domain name
 
-R1(config)#ip domain-name domain
+R1(config)#**ip domain-name domain**
 
 #### Создайте ключ шифрования с указанием его длины.
 
-R1(config)#crypto key g
+R1(config)#**crypto key g**
 
-R1(config)#crypto key generate 
+R1(config)#**crypto key generate**
 
-R1(config)#crypto key generate rsa 
+R1(config)#**crypto key generate rsa**
 
 The name for the keys will be: R1.domain
 
@@ -317,7 +317,7 @@ R1(config)#
 
 *Mar 7 5:1:0.485: %SSH-5-ENABLED: SSH 1.99 has been enabled
 
-R1(config)#ip ssh ?
+R1(config)#**ip ssh ?**
 
 authentication-retries Specify number of authentication retries
 
@@ -325,39 +325,39 @@ time-out Specify SSH time-out interval
 
 version Specify protocol version to be supported
 
-R1(config)#ip ssh ve
+R1(config)#**ip ssh ve**
 
-R1(config)#ip ssh version ?
+R1(config)#**ip ssh version ?**
 
 <1-2> Protocol version
 
-R1(config)#ip ssh version 2
+R1(config)#**ip ssh version 2**
 
 #### Создайте имя пользователя в локальной базе учетных записей.
 
 Настройте имя пользователя, используя admin в качестве имени пользователя и Adm1nP @55 в качестве пароля.
 
-R1(config)#username admin secret Adm1nP @55
+R1(config)#**username admin secret Adm1nP @55**
 
 #### Активируйте протокол SSH на линиях VTY.
 
 ##### Активируйте протоколы Telnet и SSH на входящих линиях VTY с помощью команды transport input.
 
-R1(config)#line vty 0 4
+R1(config)#**line vty 0 4**
 
-R1(config-line)#log
+R1(config-line)#**log**
 
-R1(config-line)#logi
+R1(config-line)#**logi**
 
-R1(config-line)#login lo
+R1(config-line)#**login lo**
 
-R1(config-line)#login local 
+R1(config-line)#**login local**
 
-R1(config-line)#tra
+R1(config-line)#**tra**
 
-R1(config-line)#transport in
+R1(config-line)#**transport in**
 
-R1(config-line)#transport input ?
+R1(config-line)#**transport input ?**
 
 all All protocols
 
@@ -367,13 +367,13 @@ ssh TCP/IP SSH protocol
 
 telnet TCP/IP Telnet protocol
 
-R1(config-line)#transport input ssh
+R1(config-line)#**transport input ssh**
 
 ##### Измените способ входа в систему таким образом, чтобы использовалась проверка пользователей по локальной базе учетных записей.
 
 #### Cохраните текущую конфигурацию в файл загрузочной конфигурации.
 
-R1#copy run start
+R1#**copy run start**
 
 Destination filename [startup-config]? 
 
@@ -401,11 +401,11 @@ R1#
 
 R1>
 
-R1>en
+R1>**en**
 
 Password: 
 
-R1#sh run
+R1#**sh run**
 
 Building configuration...
 
@@ -554,25 +554,25 @@ end
 
 S1>
 
-S1>en
+S1>**en**
 
 S1#
 
-S1#conf t
+S1#**conf t**
 
 Enter configuration commands, one per line. End with CNTL/Z.
 
 S1(config)#
 
-S1(config)#ip domain-n
+S1(config)#**ip domain-n**
 
-S1(config)#ip domain-name domainS
+S1(config)#**ip domain-name domainS**
 
-S1(config)#crypto key g
+S1(config)#**crypto key g**
 
-S1(config)#crypto key generate 
+S1(config)#**crypto key generate**
 
-S1(config)#crypto key generate rsa 
+S1(config)#**crypto key generate rsa**
 
 The name for the keys will be: S1.domainS
 
@@ -589,16 +589,16 @@ S1(config)#
 
 *Mar 7 6:8:1.346: %SSH-5-ENABLED: SSH 1.99 has been enabled
 
-S1(config)#ip ssh vers 2
+S1(config)#**ip ssh vers 2**
 
-S1(config)#username admin secret admin
+S1(config)#**username admin secret admin**
 
-S1(config)#line vty 0 4
+S1(config)#**line vty 0 4**
 
-S1(config-line)#login local
+S1(config-line)#**login local**
 
-S1(config-line)#transport inpu
-S1(config-line)#transport input ?
+S1(config-line)#**transport inpu**
+S1(config-line)#**transport input ?**
 
 all All protocols
 
@@ -612,7 +612,7 @@ S1(config-line)#transport input ssh
 
 S1(config-line)#
 
-S1(config-line)#^Z
+S1(config-line)#**^Z**
 
 S1#
 
@@ -620,7 +620,7 @@ S1#
 
 S1#
 
-S1#copy run start
+S1#**copy run start**
 
 Destination filename [startup-config]? 
 
@@ -652,16 +652,18 @@ S1#
 
 Используйте вопросительный знак (?), чтобы отобразить варианты параметров для команды ssh.
 
-S1#ssh ?
-  -l  Log in using this user name
-  -v  Specify SSH Protocol Version
+S1#**ssh ?**
+
+-l  Log in using this user name
+
+-v  Specify SSH Protocol Version
   
 ##### Установите с коммутатора S1 соединение с маршрутизатором R1 по протоколу SSH.
 
 (Чтобы подключиться к маршрутизатору R1 по протоколу SSH, введите команду –l admin. Это позволит вам войти в систему под именем admin. При появлении приглашения введите в качестве пароля Adm1nP@55)
 
 
-S1# ssh -l admin 192.168.1.1
+S1# **ssh -l admin 192.168.1.1**
 
 Password: 
 
@@ -669,7 +671,7 @@ Authorized Users Only!
 
 R1>
 
-S1#ssh -l admin 192.168.1.1
+S1#**ssh -l admin 192.168.1.1**
 
 Password: 
 
@@ -719,7 +721,7 @@ R1(config)#
 
 ##### Чтобы завершить сеанс SSH на маршрутизаторе R1, введите в командной строке маршрутизатора команду exit.
 
-R1# exit
+R1# **exit**
 
 [Connection to 192.168.1.1 closed by foreign host]
 
@@ -728,9 +730,9 @@ S1#
 
 R1(config)#
 
-R1(config)#ex
+R1(config)#**ex**
 
-R1#ex
+R1#**ex**
 
 [Connection to 192.168.1.1 closed by foreign host]
 
