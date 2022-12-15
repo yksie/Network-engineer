@@ -253,11 +253,6 @@ __192.168.1.67__
 
 
 
-
-
-
-
-
 ### Часть 2. Настройка и проверка двух серверов DHCPv4 на R1
 
 В части 2 необходимо настроить и проверить сервер DHCPv4 на R1. Сервер DHCPv4 будет обслуживать две подсети, подсеть A и подсеть C.
@@ -296,192 +291,45 @@ R1(dhcp-config)#**ex**
 Сохраните текущую конфигурацию в файл загрузочной конфигурации.  
 Закройте окно настройки.  
 Проверка конфигурации сервера DHCPv4  
-Чтобы просмотреть сведения о пуле, выполните команду show ip dhcp pool .
-Выполните команду show ip dhcp bindings для проверки установленных назначений адресов DHCP.
-Выполните команду show ip dhcp server statistics для проверки сообщений DHCP.
-Шаг 4.	Попытка получить IP-адрес от DHCP на PC-A
-a.	Из командной строки компьютера PC-A выполните команду ipconfig /all.
-b.	После завершения процесса обновления выполните команду ipconfig для просмотра новой информации об IP-адресе.
-c.	Проверьте подключение с помощью пинга IP-адреса интерфейса R0 G0/0/1.
-
-
-#### Отключите все порты на коммутаторах.
-
-S1(config)#**int range f 0/1-4**
-
-S1(config-if-range)#**shut**
-
-S1(config-if-range)#
-
-%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to administratively down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to down
-
-%LINK-5-CHANGED: Interface FastEthernet0/2, changed state to administratively down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to down
-
-%LINK-5-CHANGED: Interface FastEthernet0/3, changed state to administratively down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to down
-
-%LINK-5-CHANGED: Interface FastEthernet0/4, changed state to administratively down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to down
-
-%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to down
-
-__По аналогии отключаем порты на S2 и S3.__
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_2.jpg)
-
-#### Настройте подключенные порты в качестве транковых.
-S1(config)#**int range f0/1-4**
-
-S1(config-if-range)#**sw mode tr**
-
-#### Включите порты F0/2 и F0/4 на всех коммутаторах.
-S1(config)#**int f0/2**
-
-S1(config-if)#**no shut**
-
-%LINK-5-CHANGED: Interface FastEthernet0/2, changed state to down
-
-S1(config-if)#**ex**
-
-S1(config)#**int f0/4**
-
-S1(config-if)#**no shut**
-
-%LINK-5-CHANGED: Interface FastEthernet0/4, changed state to down
-
-S1(config-if)#
-
-#### Отобразите данные протокола spanning-tree.
-
-S1#**show spanning-tree**
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_3.jpg)
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_4.jpg)
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_5.jpg)
- 
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_6.jpg)
-
-#### Oтветьте на следующие вопросы.
-
-Какой коммутатор является корневым мостом? __S1__
-
-Почему этот коммутатор был выбран протоколом spanning-tree в качестве корневого моста?
-
-__Поскольку приоритет идентификатора моста одинаков (Priority), а также одинаков VLAN, коммутатор в качестве корневого моста для STP выбирается по наименьшему MAC-адресу__
-
-Какие порты на коммутаторе являются корневыми портами? 
-
-__S2 F0/2; S3 F0/4__
-
-Какие порты на коммутаторе являются назначенными портами?
-
-__S1 F0/2; S1 F0/4; S2 F0/4__
-
-Какой порт отображается в качестве альтернативного и в настоящее время заблокирован? 
-
-__S3 F0/2__
-
-Почему протокол spanning-tree выбрал этот порт в качестве невыделенного (заблокированного) порта?
-
-__Цена пути одинаковая, значит по МАС-адресам. У S3 бОльший МАС, значит с его стороны порт становится Alternative.__
-
-
-### Часть 3. Наблюдение за процессом выбора протоколом STP порта, исходя из стоимости портов
-
-#### Определите коммутатор с заблокированным портом.
-
-##### Выполните команду show spanning-tree на обоих коммутаторах некорневого моста.
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_4.jpg)
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_5.jpg)
-
-#### Измените стоимость порта.
-
-##### Помимо заблокированного порта, единственным активным портом на этом коммутаторе является порт, выделенный в качестве порта корневого моста. Уменьшите стоимость этого порта корневого моста до 18, выполнив команду spanning-tree cost 18 режима конфигурации интерфейса.
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_9.jpg)
-
->схема до изменения path cost
-
-S3(config)# interface f0/4
-
-S3(config-if)# spanning-tree vlan 1 cost 18
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_7.jpg) 
-
->схема после перестроения дерева
-
-
-#### Просмотрите изменения протокола spanning-tree.
-
-##### Повторно выполните команду show spanning-tree на обоих коммутаторах некорневого моста. Обратите внимание, что ранее заблокированный порт (S1 – F0/4) теперь является назначенным портом, и протокол spanning-tree теперь блокирует порт на другом коммутаторе некорневого моста (S3 – F0/4).
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_8.jpg)
-
-##### Почему протокол spanning-tree заменяет ранее заблокированный порт на назначенный порт и блокирует порт, который был назначенным портом на другом коммутаторе?
-
-__path cost до S3 меньше, чем path cost до S2__
-
-#### Удалите изменения стоимости порта.
-##### Выполните команду no spanning-tree cost 18 режима конфигурации интерфейса, чтобы удалить запись стоимости, созданную ранее.
-
-S3(config)#**interface f0/4**
-
-S3(config-if)#**no spanning-tree vlan 1 cost 18**
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_9.jpg) 
-
->схема после перестроения
-
-##### Повторно выполните команду show spanning-tree, чтобы подтвердить, что протокол STP сбросил порт на коммутаторе некорневого моста, вернув исходные настройки порта. Протоколу STP требуется примерно 30 секунд, чтобы завершить процесс перевода порта.
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_10.jpg)
-
-### Часть 4. Наблюдение за процессом выбора протоколом STP порта, исходя из приоритета портов
-
-##### Включите порты F0/1 и F0/3 на всех коммутаторах.
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_11.jpg) 
-
-__Аналогично для S1 и S2__
-
-##### Выполните команду show spanning-tree на коммутаторах некорневого моста. Обратите внимание, что порт корневого моста переместился на порт с меньшим номером, связанный с коммутатором корневого моста, и заблокировал предыдущий порт корневого моста.
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_12.jpg) 
-
-Какой порт выбран протоколом STP в качестве порта корневого моста на каждом коммутаторе некорневого моста? 
-
-__S2-f0/1, S3-f0/3__
-
-Почему протокол STP выбрал эти порты в качестве портов корневого моста на этих коммутаторах?
-
-__1. Они направлены в сторону корневого моста__
-
-__2. При равных приоритетах, смотрится номер порта со стороны корневого моста (подключение осуществляется через порт с наименьшим номером)__
-
-
-### Вопросы для повторения
-
-1.	Какое значение протокол STP использует первым после выбора корневого моста, чтобы определить выбор порта?
-
-__path cost (в CPT со стороны – противоположной корневому мосту)__
-
-2.	Если первое значение на двух портах одинаково, какое следующее значение будет использовать протокол STP при выборе порта?
-
-__port priority (со стороны корневго моста)__
-
-3.	Если оба значения на двух портах равны, каким будет следующее значение, которое использует протокол STP при выборе порта?
-
-__port number со стороны корневого моста (подключение осуществляется через порт с наименьшим номером)__
-
-
-
+Чтобы просмотреть сведения о пуле, выполните команду show ip dhcp pool  
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_3.jpg)
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_4.jpg)
+Выполните команду show ip dhcp binding для проверки установленных назначений адресов DHCP.
+Выполните команду show ip dhcp server statistics для проверки сообщений DHCP.  (__не реализовано в СРТ__)
+Попытка получить IP-адрес от DHCP на PC-A  
+
+Из командной строки компьютера PC-A выполните команду ipconfig /all.
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_5.jpg)  
+После завершения процесса обновления выполните команду ipconfig для просмотра новой информации об IP-адресе.  
+Проверьте подключение с помощью пинга IP-адреса интерфейса R0 G0/0/1.  
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_6.jpg)
+
+
+
+
+### Часть 3. Настройка и проверка DHCP-ретрансляции на R2
+
+В части 3 настраивается R2 для ретрансляции DHCP-запросов из локальной сети на интерфейсе G0/0/1 на DHCP-сервер (R1). 
+
+#### Настройка R2 в качестве агента DHCP-ретрансляции для локальной сети на G0/0/1  
+Настройте команду ip helper-address на G0/0/1, указав IP-адрес G0/0/0 R1.  
+Откройте окно конфигурации  
+Сохраните конфигурацию.  
+R2(config)#**ip route 0.0.0.0 0.0.0.0 10.0.0.1**  
+R2(config)#
+R2(config)#**int g0/0/1**  
+R2(config-if)#**ip help**  
+R2(config-if)#**ip helper-address 10.0.0.1**  
+R2(config-if)#**ex**  
+#### Попытка получить IP-адрес от DHCP на PC-B  
+Из командной строки компьютера PC-B выполните команду ipconfig /all.  
+После завершения процесса обновления выполните команду ipconfig для просмотра новой информации об IP-адресе.  
+Проверьте подключение с помощью пинга IP-адреса интерфейса R1 G0/0/1.  
+Выполните show ip dhcp binding для R1 для проверки назначений адресов в DHCP.  
+Выполните команду show ip dhcp server statistics для проверки сообщений DHCP.  
+	
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_7.jpg)
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_8.jpg)
 
 
 
