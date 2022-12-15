@@ -72,149 +72,26 @@ c.	Одна подсеть «Подсеть C», поддерживающая 12
 
 #### Произвести базовую настройку маршрутизаторов (отключить DNS, назначить cisco в качестве пароля консоли и включить вход в систему по паролю, назначить cisco в качестве пароля VTY и включить вход в систему по паролю, зашифровать открытые пароли, создайте баннер с предупреждением о запрете несанкционированного доступа к устройству, сохранить текущую конфигурацию в файл загрузочной конфигурации, установить часы на маршрутизаторе на сегодняшнее время и дату)
 
-en
-
-conf t
-
-no ip domain-lookup
-
-enable secret class
-
-service password-encryption 
-
-line console 0
-
-password cisco
-
-login
-
-logging synchronous 
-
-exit
-
-line vty 0 15
-
-password cisco
-
-login
-
-exit
-
-banner motd #
-
-__________GO AWAY!!!_____#
-ex
-
-clock set 17:17:17 21 nov 2022
-
-copy run start
-
-
-
-
-
-
-##### Отключите поиск DNS.
-
-S1>**en**
-
-S1#**conf t**
-
-Enter configuration commands, one per line. End with CNTL/Z.
-
-S1(config)#**no ip dom**
-
-S1(config)#**no ip domain-lookup**
-
-##### Присвойте имена устройствам в соответствии с топологией.
-##### Назначьте class в качестве зашифрованного пароля доступа к привилегированному режиму.
-##### Назначьте cisco в качестве паролей консоли и VTY и активируйте вход для консоли и VTY каналов.
-##### Настройте logging synchronous для консольного канала.
-##### Настройте баннерное сообщение дня (MOTD) для предупреждения пользователей о запрете несанкционированного доступа.
-##### Задайте IP-адрес, указанный в таблице адресации для VLAN 1 на всех коммутаторах.
-##### Скопируйте текущую конфигурацию в файл загрузочной конфигурации.
-
-S1>
-
-S1>**en**
-
-S1#**conf t**
-
-Enter configuration commands, one per line. End with CNTL/Z.
-
-S1(config)#
-
-S1(config)#**enable secret class**
-
-S1(config)#**service pass**
-
-S1(config)#**service password-encryption**
-
-S1(config)#**line**
-
-S1(config)#**line c**
-
-S1(config)#**line console 0**
-
-S1(config-line)#**password cisco**
-
-S1(config-line)#**exit**
-
-S1(config)#**line vty 0 15**
-
-S1(config-line)#**password cisco**
-
-S1(config-line)#**login**
-
-S1(config-line)#**exit**
-
-S1(config)#**line con**
-
-S1(config)#**line console 0**
-
-S1(config-line)#**password cisco**
-
-S1(config-line)#**login**
-
-S1(config-line)#**password cisco**
-
-S1(config-line)#**logging synchronous**
-
-S1(config-line)#**exit**
-
-S1(config)#**ban**
-
-S1(config)#**banner motd #**
-
-Enter TEXT message. End with the character '#'.
-
-__________GO AWAY!!!_____#
-
-S1(config)#**int vlan 1**
-
-S1(config-if)#**ip addr 192.168.1.1 255.255.255.0**
-
-S1(config-if)#**no shut**
-
-S1(config-if)#**end**
-
-S1#
-
-%SYS-5-CONFIG_I: Configured from console by console
-
-S1#
-
-S1#**copy run start**
-
-Destination filename [startup-config]? 
-
-Building configuration...
-
-[OK]
-
-S1#
-
-__S2 и S3 настраиваются аналогично.__
+en  
+conf t  
+no ip domain-lookup  
+enable secret class  
+service password-encryption   
+line console 0  
+password cisco  
+login  
+logging synchronous  
+exit  
+line vty 0 15  
+password cisco  
+login  
+exit  
+banner motd #  
+__________GO AWAY!!!_____#  
+ex  
+clock set 17:17:17 21 nov 2022  
+copy run start  
+__R2 настраивается аналогично.__  
 
 #### Проверьте связь.
 Проверьте способность компьютеров обмениваться эхо-запросами.
