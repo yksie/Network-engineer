@@ -191,7 +191,7 @@ a.	Создайте необходимые VLAN на коммутаторе 1 и
 
 b.	Настройте и активируйте интерфейс управления на S1 (VLAN 200), используя второй IP-адрес из подсети, рассчитанный ранее. Кроме того установите шлюз по умолчанию на S1.
 
-c.	Настройте и активируйте интерфейс управления на S2 (VLAN 1), используя второй IP-адрес из подсети, рассчитанный ранее. Кроме того, установите шлюз по умолчанию на S2
+c.	Настройте и активируйте интерфейс управления на S2 (VLAN 1), используя второй IP-адрес из подсети, рассчитанный ранее. Кроме того, установите шлюз по умолчанию на S2  
 Switch(config)#**int vlan 1**  
 Switch(config-if)#**ip addr 192.168.1.2 255.255.255.252**  
 Switch(config-if)#**ex**  
@@ -279,7 +279,7 @@ R1(dhcp-config)#**def**
 R1(dhcp-config)#**default-router 192.168.1.1**  
 R1(dhcp-config)#**ex**  
 
-R1(config)#**ip dhcp pool POOLRight**  (моя версия названия R2_Client_LAN)
+R1(config)#**ip dhcp pool POOLRight**  (моя версия названия R2_Client_LAN)  
 R1(dhcp-config)#**netw**  
 R1(dhcp-config)#**network 192.168.1.96 255.255.255.240**  
 R1(dhcp-config)#**def**  
@@ -291,11 +291,11 @@ R1(dhcp-config)#**ex**
 Сохраните текущую конфигурацию в файл загрузочной конфигурации.  
 Закройте окно настройки.  
 Проверка конфигурации сервера DHCPv4  
-Чтобы просмотреть сведения о пуле, выполните команду show ip dhcp pool  
-![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_3.jpg)
-![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_4.jpg)
-Выполните команду show ip dhcp binding для проверки установленных назначений адресов DHCP.
-Выполните команду show ip dhcp server statistics для проверки сообщений DHCP.  (__не реализовано в СРТ__)
+Чтобы просмотреть сведения о пуле, выполните команду show ip dhcp pool   
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_3.jpg)  
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_4.jpg)  
+Выполните команду show ip dhcp binding для проверки установленных назначений адресов DHCP.  
+Выполните команду show ip dhcp server statistics для проверки сообщений DHCP.  (__не реализовано в СРТ__)  
 Попытка получить IP-адрес от DHCP на PC-A  
 
 Из командной строки компьютера PC-A выполните команду ipconfig /all.
