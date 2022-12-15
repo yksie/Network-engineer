@@ -18,11 +18,19 @@
 | PC-A    | NIC         | DHCP         |DHCP            |DHCP|
 | PC-B    | NIC         | DHCP         |DHCP            |DHCP|
 
+> Таблица адресации
 
+| VLAN  | Имя   | Назначенный интерфейс|
+| :------------ |:---------------:| :---------------:|
+| 1     | Нет         | S2: F0/18    |
+| 100   | Клиенты     | S1: F0/6     |
+| 200   | Управление  | S1: VLAN 200 |
+| 999   | Parking_Lot | S1: F0/1-4, F0/7-24,G0/1-2|
+| 1000  | Собственная | -            |
 
+>Таблица VLAN
 
-
-![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)/Screenshot_1.jpg)
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_1.jpg)
 > Сеть согласно топологии в ПО СРТ
 
 
@@ -30,11 +38,9 @@
 
 ##### [Часть 1. Создание сети и настройка основных параметров устройства](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-1-%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81%D0%B5%D1%82%D0%B8-%D0%B8-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D1%85-%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2-%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%B0-1)
 
-##### [Часть 2. Выбор корневого моста](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-2-%D0%B2%D1%8B%D0%B1%D0%BE%D1%80-%D0%BA%D0%BE%D1%80%D0%BD%D0%B5%D0%B2%D0%BE%D0%B3%D0%BE-%D0%BC%D0%BE%D1%81%D1%82%D0%B0-1)
+##### [Часть 2. Настройка и проверка двух серверов DHCPv4 на R1](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-2-%D0%B2%D1%8B%D0%B1%D0%BE%D1%80-%D0%BA%D0%BE%D1%80%D0%BD%D0%B5%D0%B2%D0%BE%D0%B3%D0%BE-%D0%BC%D0%BE%D1%81%D1%82%D0%B0-1)
 
-##### [Часть 3. Наблюдение за процессом выбора протоколом STP порта, исходя из стоимости портов](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-3-%D0%BD%D0%B0%D0%B1%D0%BB%D1%8E%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B7%D0%B0-%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%BE%D0%BC-%D0%B2%D1%8B%D0%B1%D0%BE%D1%80%D0%B0-%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%D0%BC-stp-%D0%BF%D0%BE%D1%80%D1%82%D0%B0-%D0%B8%D1%81%D1%85%D0%BE%D0%B4%D1%8F-%D0%B8%D0%B7-%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8-%D0%BF%D0%BE%D1%80%D1%82%D0%BE%D0%B2-1)
-
-##### [Часть 4. Наблюдение за процессом выбора протоколом STP порта, исходя из приоритета портов](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-4-%D0%BD%D0%B0%D0%B1%D0%BB%D1%8E%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B7%D0%B0-%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%BE%D0%BC-%D0%B2%D1%8B%D0%B1%D0%BE%D1%80%D0%B0-%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%D0%BC-stp-%D0%BF%D0%BE%D1%80%D1%82%D0%B0-%D0%B8%D1%81%D1%85%D0%BE%D0%B4%D1%8F-%D0%B8%D0%B7-%D0%BF%D1%80%D0%B8%D0%BE%D1%80%D0%B8%D1%82%D0%B5%D1%82%D0%B0-%D0%BF%D0%BE%D1%80%D1%82%D0%BE%D0%B2-1)
+##### [Часть 3. Настройка и проверка DHCP-ретрансляции на R2](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-3-%D0%BD%D0%B0%D0%B1%D0%BB%D1%8E%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B7%D0%B0-%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%BE%D0%BC-%D0%B2%D1%8B%D0%B1%D0%BE%D1%80%D0%B0-%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%D0%BC-stp-%D0%BF%D0%BE%D1%80%D1%82%D0%B0-%D0%B8%D1%81%D1%85%D0%BE%D0%B4%D1%8F-%D0%B8%D0%B7-%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8-%D0%BF%D0%BE%D1%80%D1%82%D0%BE%D0%B2-1)
 
 ##### [Вопросы для повторения](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/readme.md#%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D1%8B-%D0%B4%D0%BB%D1%8F-%D0%BF%D0%BE%D0%B2%D1%82%D0%BE%D1%80%D0%B5%D0%BD%D0%B8%D1%8F-1)
 
@@ -44,9 +50,69 @@
 
 #### Создайте сеть согласно топологии.
 
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_1.jpg)
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_1.jpg)
 
-#### Настройте базовые параметры каждого коммутатора.
+#### Разбить подсеть 192.168.1.0/24 на:
+
+a.	Одна подсеть «Подсеть A», поддерживающая 58 хостов (клиентская VLAN на R1).
+
+Подсеть A: 192.168.1.1 255.255.255.192 (R1 G0/0/1.100)
+ 
+b.	Одна подсеть «Подсеть B», поддерживающая 28 хостов (управляющая VLAN на R1). 
+
+Подсеть B: 192.168.1.65 255.255.255.224 (R1 G0/0/1.200)
+
+IP-address S1 VLAN 200 - 192.168.1.66 255.255.255.224
+
+Шлюз по умолчанию для S1 VLAN 200 - 192.168.1.65
+
+c.	Одна подсеть «Подсеть C», поддерживающая 12 узлов (клиентская сеть на R2).
+
+Подсеть C: 192.168.1.97 255.255.255.240
+
+#### Произвести базовую настройку маршрутизаторов (отключить DNS, назначить cisco в качестве пароля консоли и включить вход в систему по паролю, назначить cisco в качестве пароля VTY и включить вход в систему по паролю, зашифровать открытые пароли, создайте баннер с предупреждением о запрете несанкционированного доступа к устройству, сохранить текущую конфигурацию в файл загрузочной конфигурации, установить часы на маршрутизаторе на сегодняшнее время и дату)
+
+en
+
+conf t
+
+no ip domain-lookup
+
+enable secret class
+
+service password-encryption 
+
+line console 0
+
+password cisco
+
+login
+
+logging synchronous 
+
+exit
+
+line vty 0 15
+
+password cisco
+
+login
+
+exit
+
+banner motd #
+
+__________GO AWAY!!!_____#
+ex
+
+clock set 17:17:17 21 nov 2022
+
+copy run start
+
+
+
+
+
 
 ##### Отключите поиск DNS.
 
