@@ -93,14 +93,73 @@ clock set 17:17:17 21 nov 2022
 copy run start  
 __R2 настраивается аналогично.__  
 
-#### Проверьте связь.
-Проверьте способность компьютеров обмениваться эхо-запросами.
 
-Успешно ли выполняется эхо-запрос от коммутатора S1 на коммутатор S2?	__да__
 
-Успешно ли выполняется эхо-запрос от коммутатора S1 на коммутатор S3?	__да__
+#### Настройка маршрутизации между сетями VLAN на маршрутизаторе R1
 
-Успешно ли выполняется эхо-запрос от коммутатора S2 на коммутатор S3?	__да__
+
+
+R1(config)#**int g 0/0/1.100**  
+R1(config-subif)#  
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1.100, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1.100, changed state to up
+
+R1(config-subif)#
+R1(config-subif)#**encapsulation dot1Q 100**  
+R1(config-subif)#**ip addr 192.168.1.1 255.255.255.192**  
+R1(config-subif)#**int g 0/0/1.200**  
+R1(config-subif)#  
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1.200, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1.200, changed state to up
+
+R1(config-subif)#**encapsulation dot1Q 200**  
+R1(config-subif)#**ip addr 192.168.1.65 255.255.255.192**  
+R1(config-subif)#  
+R1(config-subif)#**int g 0/0/1.1000**  
+R1(config-subif)#  
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1.1000, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1.1000, changed state to up
+
+R1(config-subif)#  
+
+
+
+#### Настройте G0/1 на R2, затем G0/0/0 и статическую маршрутизацию для обоих маршрутизаторов
+
+
+
+a.	Настройте G0/0/1 на R2 с первым IP-адресом подсети C, рассчитанным ранее.
+
+R2(config-if)#i**p addr 192.168.1.129 255.255.255.192**  
+
+b.	Настройте интерфейс G0/0/0 для каждого маршрутизатора на основе приведенной выше таблицы IP-адресации.
+
+R2(config)#**int g 0/0/0**  
+R2(config-if)#**ip addr 10.0.0.2 255.255.255.252**  
+R1(config-subif)#**int g 0/0/0**  
+R1(config-if)#**ip addr 10.0.0.1 255.255.255.252**  
+
+c.	Настройте маршрут по умолчанию на каждом маршрутизаторе, указываемом на IP-адрес G0/0/0 на другом маршрутизаторе.
+
+R2(config)#**ip routing**  
+R2(config)#**ip route 10.0.0.1 255.255.255.252 g 0/0/0**  
+%Default route without gateway, if not a point-to-point interface, may impact performance  
+%Inconsistent address and mask
+
+R1(config)#**ip routing**  
+R1(config)#**ip route 10.0.0.2 255.255.255.252 g 0/0/0**  
+%Default route without gateway, if not a point-to-point interface, may impact performance  
+%Inconsistent address and mask  
+
+d.	Убедитесь, что статическая маршрутизация работает с помощью пинга до адреса G0/0/1 R2 от R1.
+
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_2.jpg)
+
+
+
 
 
 ### Часть 2. Выбор корневого моста
