@@ -22,7 +22,9 @@
 
 
 
-![](https://github.com/yksie/Network-engineer/blob/main/lab07(lec15)/Screenshot_0.jpg)
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)/Screenshot_1.jpg)
+> Сеть согласно топологии в ПО СРТ
+
 
 ## Задание
 
