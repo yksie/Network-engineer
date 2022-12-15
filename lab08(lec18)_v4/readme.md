@@ -50,7 +50,9 @@
 
 #### Создайте сеть согласно топологии.
 
+---
 ![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_1.jpg)
+___
 
 #### Разбить подсеть 192.168.1.0/24 на:
 
@@ -156,8 +158,9 @@ R1(config)#**ip route 10.0.0.2 255.255.255.252 g 0/0/0**
 
 d.	Убедитесь, что статическая маршрутизация работает с помощью пинга до адреса G0/0/1 R2 от R1.
 
+---
 ![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_2.jpg)
-
+---
 
 
 #### Произвести базовую настройку коммутаторов (отключить DNS, назначить class в качестве зашифрованного пароля привилегированного режима EXEC, назначить cisco в качестве пароля консоли и включить вход в систему по паролю, назначить cisco в качестве пароля VTY и включить вход в систему по паролю, зашифровать открытые пароли, создайте баннер с предупреждением о запрете несанкционированного доступа к устройству, сохранить текущую конфигурацию в файл загрузочной конфигурации, установить часы на маршрутизаторе на сегодняшнее время и дату)
@@ -291,19 +294,29 @@ R1(dhcp-config)#**ex**
 Сохраните текущую конфигурацию в файл загрузочной конфигурации.  
 Закройте окно настройки.  
 Проверка конфигурации сервера DHCPv4  
-Чтобы просмотреть сведения о пуле, выполните команду show ip dhcp pool   
-![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_3.jpg)  
+Чтобы просмотреть сведения о пуле, выполните команду show ip dhcp pool  
+
+---
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_3.jpg)
+---
 ![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_4.jpg)  
+---
+
 Выполните команду show ip dhcp binding для проверки установленных назначений адресов DHCP.  
 Выполните команду show ip dhcp server statistics для проверки сообщений DHCP.  (__не реализовано в СРТ__)  
 Попытка получить IP-адрес от DHCP на PC-A  
 
 Из командной строки компьютера PC-A выполните команду ipconfig /all.
+
+---
 ![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_5.jpg)  
+---
 После завершения процесса обновления выполните команду ipconfig для просмотра новой информации об IP-адресе.  
 Проверьте подключение с помощью пинга IP-адреса интерфейса R0 G0/0/1.  
-![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_6.jpg)
 
+---
+![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_6.jpg)
+---
 
 
 
@@ -327,8 +340,10 @@ R2(config-if)#**ex**
 Проверьте подключение с помощью пинга IP-адреса интерфейса R1 G0/0/1.  
 Выполните show ip dhcp binding для R1 для проверки назначений адресов в DHCP.  
 Выполните команду show ip dhcp server statistics для проверки сообщений DHCP.  
-	
+
+---
 ![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_7.jpg)
+---
 ![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v4/Screenshot_8.jpg)
 
 
