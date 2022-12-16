@@ -8,7 +8,7 @@
 
 
 | Устройство  | Интерфейс   | IPv6-адрес|
-| :------------ |:---------------:| :---------------:|
+| :------------ |:---------------| :---------------|
 | R1      | G0/0/0      | 2001:db8:acad:2::1/64  |
 | R1      | G0/0/0      | fe80::1                |
 | R1      | G0/0/1      | 2001:db8:acad:1::1/64  |
@@ -26,15 +26,15 @@
 
 ## Задание
 
-##### [Часть 1. Создание сети и настройка основных параметров устройства]()
+##### [Часть 1. Создание сети и настройка основных параметров устройства](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v6/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-1-%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81%D0%B5%D1%82%D0%B8-%D0%B8-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D1%85-%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2-%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%B0-1)
 
-##### [Часть 2. Проверка назначения адреса SLAAC от R1]()
+##### [Часть 2. Проверка назначения адреса SLAAC от R1](
+https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v6/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-2-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0-%D0%BD%D0%B0%D0%B7%D0%BD%D0%B0%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B0%D0%B4%D1%80%D0%B5%D1%81%D0%B0-slaac-%D0%BE%D1%82-r1-1)
 
-##### [Часть 3. Настройка и проверка сервера DHCPv6 без гражданства на R1]()
+##### [Часть 3. Настройка и проверка сервера DHCPv6 без гражданства на R1](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v6/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-3-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-%D0%B8-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0-%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D0%B0-dhcpv6-%D0%BD%D0%B0-r1)
 
-##### [Часть 4. Настройка и проверка состояния DHCPv6 сервера на R1]()
+##### [Часть 4. Настройка и проверка состояния DHCPv6 сервера на R1](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v6/readme.md#%D1%87%D0%B0%D1%81%D1%82%D1%8C-4-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D0%B0-dhcpv6-%D1%81-%D1%81%D0%BE%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%BC-%D1%81%D0%BE%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%B8%D1%8F-%D0%BD%D0%B0-r2)
 
-##### [Часть 5. Настройка и проверка DHCPv6 Relay на R2]()
 
 
 
@@ -85,8 +85,8 @@ ___
 ___
 #### Настройте маршрут по умолчанию на каждом маршрутизаторе, который указывает на IP-адрес G0/0/0 на другом маршрутизаторе.
 
-R1(config)#ipv6 route 2001:db8:acad:3::1/64 2001:db8:acad:2::2  
-R2(config)#ipv6 route 2001:db8:acad:1::1/64 2001:db8:acad:2::1  
+R1(config)#**ipv6 route 2001:db8:acad:3::1/64 2001:db8:acad:2::2**  
+R2(config)#**ipv6 route 2001:db8:acad:1::1/64 2001:db8:acad:2::1**  
 
 Убедитесь, что маршрутизация работает с помощью пинга адреса G0/0/1 R2 из R1
 
@@ -110,12 +110,12 @@ ___
 ![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v6/Screenshot_17.jpg)
 ___
 
-IPV6 addr 2001:DB8:ACAD:1:20C:CFFF:FE48:D599  
+IPV6 addr **2001:DB8:ACAD:1:20C:CFFF:FE48:D599**  
 
 Вопрос:
 
 Откуда взялась часть адреса с идентификатором хоста?  
-48:D5:99 - три последние октета МАС-адреса PC-A  
+**48:D5:99** - три последние октета МАС-адреса PC-A  
 
 
 ### Часть 3. Настройка и проверка сервера DHCPv6 на R1
@@ -126,15 +126,15 @@ IPV6 addr 2001:DB8:ACAD:1:20C:CFFF:FE48:D599
 
 Создайте пул DHCP IPv6 на R1 с именем R1-STATELESS. В составе этого пула назначьте адрес DNS-сервера как 2001:db8:acad: :1, а имя домена — как stateless.com.
 
-R1(config)# ipv6 dhcp pool R1-STATELESS  
-R1(config-dhcp)# dns-server 2001:db8:acad::254  
-R1(config-dhcp)# domain-name STATELESS.com  
+R1(config)#**ipv6 dhcp pool R1-STATELESS**  
+R1(config-dhcp)# **dns-server 2001:db8:acad::254**  
+R1(config-dhcp)# **domain-name STATELESS.com**  
 
 Настройте интерфейс G0/0/1 на R1, чтобы предоставить флаг конфигурации OTHER для локальной сети R1 и укажите только что созданный пул DHCP в качестве ресурса DHCP для этого интерфейса.
 
-R1(config)# interface g0/0/1  
-R1(config-if)# ipv6 nd other-config-flag   
-R1(config-if)# ipv6 dhcp server R1-STATELESS  
+R1(config)# **interface g0/0/1**  
+R1(config-if)# **ipv6 nd other-config-flag**   
+R1(config-if)# **ipv6 dhcp server R1-STATELESS**  
 
 ![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v6/Screenshot_18_0.jpg)
 
@@ -162,20 +162,20 @@ __(сервер будем делать на R2 из-за ограниченно
 
 #### Создайте пул DHCPv6 на R1 для сети 2001:db8:acad:3:aaa::/80. Это предоставит адреса локальной сети, подключенной к интерфейсу G0/0/1 на R2. В составе пула задайте DNS-сервер 2001:db8:acad: :254 и задайте доменное имя STATEFUL.com
 
-R1(config)# ipv6 dhcp pool R2-STATEFUL  
-R1(config-dhcp)# address prefix 2001:db8:acad:3:aaa::/80  
-R1(config-dhcp)# dns-server 2001:db8:acad::254  
-R1(config-dhcp)# domain-name STATEFUL.com  
+R1(config)# **ipv6 dhcp pool R2-STATEFUL**  
+R1(config-dhcp)# **address prefix 2001:db8:acad:3:aaa::/80**  
+R1(config-dhcp)# **dns-server 2001:db8:acad::254**  
+R1(config-dhcp)# **domain-name STATEFUL.com**  
 Назначьте только что созданный пул DHCPv6 интерфейсу g0/0/0 на R1.  
-R1(config)# interface g0/0/0  
-R1(config-if)# ipv6 dhcp server R2-STATEFUL  
+R1(config)# **interface g0/0/0**  
+R1(config-if)# **ipv6 dhcp server R2-STATEFUL**  
 
 ___
 ![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v6/Screenshot_20.jpg)
 ___
 
 R2 (конфигурация) # интерфейс g0/0/1  
-R2(config-if)# ipv6 nd managed-config-flag  
+R2(config-if)# **ipv6 nd managed-config-flag**  
 
 ___
 ![](https://github.com/yksie/Network-engineer/blob/main/lab08(lec18)_v6/Screenshot_20_1.jpg)
