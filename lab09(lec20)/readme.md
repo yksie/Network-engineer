@@ -199,26 +199,22 @@ ___
 Интерфейсы F0/6 на S1 и F0/18 на S2 настроены как порты доступа. На этом шаге вы также настроите безопасность портов на этих двух портах доступа.  
 На S1, введите команду show port-security interface f0/6  для отображения настроек по умолчанию безопасности порта для интерфейса F0/6. Запишите свои ответы ниже.
 
-
-
-
-Функция	Настройка по умолчанию
-Защита портов	Disabled
-Максимальное количество записей MAC-адресов	1
-Режим проверки на нарушение безопасности	Shutdown
-Aging Time	0 mins
-Aging Type	Absolute
-Secure Static Address Aging	Disabled
-Sticky MAC Address	0
-
+| Функция | Настройка по умолчанию   | 
+| :------------ |:---------------:| 
+| Защита портов      | Disabled    | 
+| Максимальное количество записей MAC-адресов      | 1    | 
+|Режим проверки на нарушение безопасности	| Shutdown |
+|Aging Time	| 0 mins |
+|Aging Type	| Absolute |
+|Secure Static Address Aging	| Disabled |
+|Sticky MAC Address |	0
 >Конфигурация безопасности порта по умолчанию
 
-
-На S1 включите защиту порта на F0 / 6 со следующими настройками:
-o	Максимальное количество записей MAC-адресов: 3
-o	Режим безопасности: restrict
-o	Aging time: 60 мин.
-o	Aging type: неактивный как?
+На S1 включите защиту порта на F0 / 6 со следующими настройками:  
+o	Максимальное количество записей MAC-адресов: 3  
+o	Режим безопасности: restrict  
+o	Aging time: 60 мин.  
+o	Aging type: неактивный (в CPT не реализовано)
 
 S1(config)#int f 0/6
 S1(config-if)# sw port-security
@@ -226,162 +222,154 @@ S1(config-if)#sw port-security maximum 3
 S1(config-if)#sw port-security violation res
 S1(config-if)#sw po aging time 60
 
-c.	Verify port security on S1 F0/6.
-S1# show port-security interface f0/6
-Port Security : Enabled
-Port Status : Secure-up
-Violation Mode : Restrict
-Aging Time : 60 mins
-Aging Type : Inactivity
-SecureStatic Address Aging : Disabled
-Maximum MAC Addresses : 3
-Total MAC Addresses : 1
-Configured MAC Addresses : 0
-Sticky MAC Addresses : 0 (у меня 1)
-Last Source Address:Vlan : 0009.7C4B.5624:10
-Security Violation Count : 0
+Verify port security on S1 F0/6.  
+S1# **show port-security interface f0/6**  
+Port Security : Enabled  
+Port Status : Secure-up  
+Violation Mode : Restrict  
+Aging Time : 60 mins  
+Aging Type : Inactivity  
+SecureStatic Address Aging : Disabled  
+Maximum MAC Addresses : 3  
+Total MAC Addresses : 1  
+Configured MAC Addresses : 0  
+Sticky MAC Addresses : 0 (у меня 1)  
+Last Source Address:Vlan : 0009.7C4B.5624:10  
+Security Violation Count : 0  
 
-S1# show port-security address
+S1# **show port-security address**  
+
                Secure Mac Address Table
------------------------------------------------------------------------------
-Vlan Mac Address Type Ports Remaining Age
-                                                                   (mins)
----- ----------- ---- ----- -------------
-  10 0009.7C4B.5624 SecureDynamic Fa0/6 60 (I)
------------------------------------------------------------------------------
-Total Addresses in System (excluding one mac per port) : 0
-Max Addresses limit in System (excluding one mac per port) : 8192
-d.	Включите безопасность порта для F0 / 18 на S2. Настройте каждый активный порт доступа таким образом, чтобы он автоматически добавлял адреса МАС, изученные на этом порту, в текущую конфигурацию.
-e.	Настройте следующие параметры безопасности порта на S2 F / 18:
-o	Максимальное количество записей MAC-адресов: 2
-o	Тип безопасности: Protect
-o	Aging time: 60 мин.
-
-S2(config)#int f 0/18
-S2(config-if)#sw port-security 
-S2(config-if)#sw port-security aging time 60
-S2(config-if)#sw po maximum 2
-S2(config-if)#sw po violation pro
-
-
-f.	Проверка функции безопасности портов на S2 F0/18.
-S2# show port-security interface f0/18
-Port Security : Enabled
-Port Status : Secure-up
-Violation Mode : Protect
-Aging Time : 60 mins
-Aging Type : Absolute
-SecureStatic Address Aging : Disabled
-Maximum MAC Addresses : 2
-Total MAC Addresses : 1
-Configured MAC Addresses : 0
-Sticky MAC Addresses : 1
-Last Source Address:Vlan : 0007.EC04.1CA6:10
-Security Violation Count : 0
-
-S2# show port-security address
-               Secure Mac Address Table
------------------------------------------------------------------------------
-Vlan Mac Address Type Ports Remaining Age
-                                                                   (mins)
----- ----------- ---- ----- -------------
-  10 0007.EC04.1CA6 SecureSticky Fa0/18 -
------------------------------------------------------------------------------
-Total Addresses in System (excluding one mac per port) : 0
+-----------------------------------------------------------------------------  
+Vlan Mac Address Type Ports Remaining Age  
+                                                                   (mins)  
+---- ----------- ---- ----- -------------  
+  10 0009.7C4B.5624 SecureDynamic(у меня stick) Fa0/6 60 (I)  
+-----------------------------------------------------------------------------  
+Total Addresses in System (excluding one mac per port) : 0  
 Max Addresses limit in System (excluding one mac per port) : 1024
-Шаг 5. Реализовать безопасность DHCP snooping.
-a.	На S2 включите DHCP snooping и настройте DHCP snooping во VLAN 10.
-b.	Настройте магистральные порты на S2 как доверенные порты.
+
+Включите безопасность порта для F0 / 18 на S2. Настройте каждый активный порт доступа таким образом, чтобы он автоматически добавлял адреса МАС, изученные на этом порту, в текущую конфигурацию.  
+Настройте следующие параметры безопасности порта на S2 F / 18:  
+o	Максимальное количество записей MAC-адресов: 2  
+o	Тип безопасности: Protect  
+o	Aging time: 60 мин.  
+
+S2(config)#**int f 0/18**  
+S2(config-if)#**sw port-security**  
+S2(config-if)#**sw port-security aging time 60**  
+S2(config-if)#**sw po maximum 2**  
+S2(config-if)#**sw po violation pro**  
 
 
-S2(config)#ip dhcp snooping vlan 10
-S2(config)#int f 0/1
-S2(config-if)#ip dhcp snooping trust
+Проверка функции безопасности портов на S2 F0/18.  
+S2# **show port-security interface f0/18**  
+Port Security : Enabled  
+Port Status : Secure-up  
+Violation Mode : Protect  
+Aging Time : 60 mins  
+Aging Type : Absolute  
+SecureStatic Address Aging : Disabled  
+Maximum MAC Addresses : 2  
+Total MAC Addresses : 1  
+Configured MAC Addresses : 0  
+Sticky MAC Addresses : 1  
+Last Source Address:Vlan : 0007.EC04.1CA6:10  
+Security Violation Count : 0  
 
-c.	Ограничьте ненадежный порт Fa0/18 на S2 пятью DHCP-пакетами в секунду.
+S2# **show port-security address**  
+               Secure Mac Address Table  
+-----------------------------------------------------------------------------  
+Vlan Mac Address Type Ports Remaining Age  
+                                                                   (mins)  
+---- ----------- ---- ----- -------------  
+  10 0007.EC04.1CA6 SecureSticky Fa0/18 -  
+-----------------------------------------------------------------------------  
+Total Addresses in System (excluding one mac per port) : 0  
+Max Addresses limit in System (excluding one mac per port) : 1024  
+
+#### Реализовать безопасность DHCP snooping.
+
+На S2 включите DHCP snooping и настройте DHCP snooping во VLAN 10.
+Настройте магистральные порты на S2 как доверенные порты.
 
 
-S2(config-if)#ip dhcp snooping limit rate 5
+S2(config)#**ip dhcp snooping vlan 10**  
+S2(config)#**int f 0/1**  
+S2(config-if)#**ip dhcp snooping trust**  
+
+Ограничьте ненадежный порт Fa0/18 на S2 пятью DHCP-пакетами в секунду.
+
+S2(config-if)#**ip dhcp snooping limit rate 5**  
+
+Проверка DHCP Snooping на S2.
+
+S2# **show ip dhcp snooping**  
+
+![](https://github.com/yksie/Network-engineer/blob/main/lab09(lec20)/Screenshot_8.jpg) 
 
 
-d.	Проверка DHCP Snooping на S2.
-S2# show ip dhcp snooping
-scr8
-Switch DHCP snooping is enabled
-DHCP snooping is configured on following VLANs:
-10
-DHCP snooping is operational on following VLANs:
-10
-DHCP snooping is configured on the following L3 Interfaces:
-Insertion of option 82 is enabled
-   circuit-id default format: vlan-mod-port
-   remote-id: 0cd9.96d2.3f80 (MAC)
-Option 82 on untrusted port is not allowed
-Verification of hwaddr field is enabled
-Verification of giaddr field is enabled
-DHCP snooping trust/rate is configured on the following Interfaces:
+В командной строке на PC-B освободите, а затем обновите IP-адрес.
 
-Interface Trusted Allow option Rate limit (pps)
------------------------ ------- ------------ ----------------
-FastEthernet0/1 yes yes unlimited
-  Custom circuit-ids:
-FastEthernet0/18 no no 5
-  Custom circuit-ids:
-e.	В командной строке на PC-B освободите, а затем обновите IP-адрес.
 C:\Users\Student> ipconfig /release
+
 C:\Users\Student> ipconfig /renew
-scr9
-f.	Проверьте привязку отслеживания DHCP с помощью команды show ip dhcp snooping binding.
-S2# show ip dhcp snooping binding 
-MacIp адресAddress Lease(sec) Type VLAN Interface
------------------- --------------- ---------- ------------- ---- --------------------
-00:50:56:90:D0:8E 192.168.10.11 86213 dhcp-snooping 10 FastEthernet0/18
-Total number of bindings: 1
-у меня нули:
+
+![](https://github.com/yksie/Network-engineer/blob/main/lab09(lec20)/Screenshot_9.jpg) 
+
+___
+
+
+Проверьте привязку отслеживания DHCP с помощью команды show ip dhcp snooping binding.
+
+S2# **show ip dhcp snooping binding**  
+MacIp адресAddress Lease(sec) Type VLAN Interface  
+------------------ --------------- ---------- ------------- ---- --------------------  
+00:50:56:90:D0:8E 192.168.10.11 86213 dhcp-snooping 10 FastEthernet0/18  
+__Total number of bindings: 1__   
+
  
-Шаг 6. Реализация PortFast и BPDU Guard
+#### Реализация PortFast и BPDU Guard
  
+ Настройте PortFast на всех портах доступа, которые используются на обоих коммутаторах.
  
-a.	Настройте PortFast на всех портах доступа, которые используются на обоих коммутаторах.
-ПРИМЕНЯЕТСЯ К КОНЕЧНЫМ УЗЛАМ
-scr10
-b.	Включите защиту BPDU на портах доступа VLAN 10 S1 и S2, подключенных к PC-A и PC-B.
+__ПРИМЕНЯЕТСЯ К КОНЕЧНЫМ УЗЛАМ__
 
-ДЛЯ ТРАНКОВОГО F0/1 И F0/18
-ПОКА ТРАНКОВЫЙ НЕ НАСТРОИЛ – ОТРУБАЛО ТРАНК
+![](https://github.com/yksie/Network-engineer/blob/main/lab09(lec20)/Screenshot_10.jpg) 
 
-S2(config-if)#spa bpduguard ena
-S2(config-if)#ex
-S2(config)#spa portfast bpduguard default
-
-c.	Убедитесь, что защита BPDU и PortFast включены на соответствующих портах.
-S1# show spanning-tree interface f0/6 detail
- Port 8 (FastEthernet0/6) of VLAN0010 is designated forwarding
-   Port path cost 19, Port priority 128, Port Identifier 128.6.
-   <output omitted for brevity>
-   Number of transitions to forwarding state: 1
-   The port is in the portfast mode
-   Link type is point-to-point by default
-   Bpdu guard is enabled
-   BPDU: sent 128, received 0
-
-но эта строчка есть в sh run
-__________________________________________________
-отрубает f0/1 S1
-
-S1(config)#ip dhcp snooping vlan 10
-S1(config)#int f 0/1
-S1(config-if)#ip dhcp snooping trust
-
-отключаю bpduguard на транке S1 – сразу отрубает транк
+___
 
 
-Шаг 7. Проверьте наличие сквозного ⁪подключения.
-    
+Включите защиту BPDU на портах доступа VLAN 10 S1 и S2, подключенных к PC-A и PC-B.
+
+
+S2(config-if)#**spa bpduguard ena**  
+S2(config-if)#**ex**  
+S2(config)#**spa portfast bpduguard default**  
+
+Убедитесь, что защита BPDU и PortFast включены на соответствующих портах.  
+S1# **show spanning-tree interface f0/6 detail**   
+ Port 8 (FastEthernet0/6) of VLAN0010 is designated forwarding    
+   Port path cost 19, Port priority 128, Port Identifier 128.6.    
+   <output omitted for brevity>  
+   Number of transitions to forwarding state: 1  
+   The port is in the portfast mode  
+   Link type is point-to-point by default  
+__Bpdu guard is enabled__
+__BPDU: sent 128, received 0__
+
+
+S1(config)#**ip dhcp snooping vlan 10**  
+S1(config)#**int f 0/1**  
+S1(config-if)#**ip dhcp snooping trust**  
+
+
+
+#### Проверьте наличие сквозного ⁪подключения.
     
 Проверьте PING связь между всеми устройствами в таблице IP-адресации. В случае сбоя проверки связи может потребоваться отключить брандмауэр на хостах.
 
-scr11
+![](https://github.com/yksie/Network-engineer/blob/main/lab09(lec20)/Screenshot_11.jpg) 
 
 
 
