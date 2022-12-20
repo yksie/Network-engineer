@@ -80,7 +80,7 @@ R1# **show ip interface brief**
 **host S2**  
 Откройте окно конфигурации  
 Запретите нежелательный поиск в DNS.  
-**no ip domain-lookup**
+**no ip domain-lookup**  
 Настройте описания интерфейса для портов, которые используются в S1 и S2.  
 
 ![](https://github.com/yksie/Network-engineer/blob/main/lab09(lec20)/Screenshot_3.jpg) 
@@ -93,15 +93,15 @@ R1# **show ip interface brief**
 
 
 #### Сконфигруриуйте VLAN 10.  
-Добавьте VLAN 10 на S1 и S2 и назовите VLAN - Management.
+Добавьте VLAN 10 на S1 и S2 и назовите VLAN - Management.  
 #### Сконфигруриуйте SVI для VLAN 10.  
 Настройте IP-адрес в соответствии с таблицей адресации для SVI для VLAN 10 на S1 и S2. Включите интерфейсы SVI и предоставьте описание для интерфейса.  
-![](https://github.com/yksie/Network-engineer/blob/main/lab09(lec20)/Screenshot_4.jpg) 
-S1 настраивается аналогично
+![](https://github.com/yksie/Network-engineer/blob/main/lab09(lec20)/Screenshot_4.jpg)  
+__S1 настраивается аналогично__  
 #### Настройте VLAN 333 с именем Native на S1 и S2.  
 #### Настройте VLAN 999 с именем ParkingLot на S1 и S2.  
-![](https://github.com/yksie/Network-engineer/blob/main/lab09(lec20)/Screenshot_5.jpg) 
-__S2 аналогично__
+![](https://github.com/yksie/Network-engineer/blob/main/lab09(lec20)/Screenshot_5.jpg)  
+__S2 аналогично__  
 
 
 ### Часть 3. Настройки безопасности коммутатора
@@ -143,8 +143,8 @@ Fa0/1 1,10,333,999
 Port Vlans in spanning tree forwarding state and not pruned  
 Fa0/1 1,10,333,999
 
-Отключить согласование DTP F0/1 на S1 и S2. 
-**sw nonegotiate**
+Отключить согласование DTP F0/1 на S1 и S2.  
+**sw nonegotiate**  
 
 Проверьте с помощью команды show interfaces.
 
