@@ -338,7 +338,6 @@ Total number of bindings: 1
  
  Настройте PortFast на всех портах доступа, которые используются на обоих коммутаторах.
  
-__ПРИМЕНЯЕТСЯ К КОНЕЧНЫМ УЗЛАМ__
 
 ![](https://github.com/yksie/Network-engineer/blob/main/lab09(lec20)/Screenshot_10.jpg) 
 
