@@ -319,6 +319,9 @@ C:\Users\Student> ipconfig /renew
 
 ___
 
+(при остустствии ip от dhcp, можно попробовать на S2(config)# no ip dhcp snooping information option (отключение 82-ой опции))
+
+
 
 Проверьте привязку отслеживания DHCP с помощью команды show ip dhcp snooping binding.
 
