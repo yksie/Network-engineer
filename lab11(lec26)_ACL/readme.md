@@ -1,8 +1,8 @@
-# Network Engineer. Basic. ДЗ №10 по лекции №23.
+# Network Engineer. Basic. ДЗ №11 по лекции №26.
 
-## Лабораторная работа. Настройка протокола OSPFv2 для одной области
+## Лабораторная работа. Настройка и проверка расширенных списков контроля доступа.
 
-![](https://github.com/yksie/Network-engineer/blob/main/lab10(lec23)_OSPF/Screenshot_1.jpg)
+![](https://github.com/yksie/Network-engineer/blob/main/lab11(lec26)_ACL/Screenshot_1.jpg)
 
 
 | Устройство  | Интерфейс   | IP-адрес|Маска подсети|
