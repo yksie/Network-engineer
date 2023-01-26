@@ -67,10 +67,10 @@ S1(config)#
 S1(config)#ip ssh version 2  
 *Mar 2 19:26:52.473: %SSH-5-ENABLED: SSH 2 has been enabled  
 
-S1(config)#**username SSHadmin secret $cisco123!**  
-S1(config)#**line vty 0 4**  
-S1(config-line)#**login local** 
-S1(config-line)#**transport input ssh**  
+S1(config)#**username SSHadmin secret $cisco123!**   
+S1(config)#**line vty 0 4**   
+S1(config-line)#**login local**   
+S1(config-line)#**transport input ssh**   
 
 ![](https://github.com/yksie/Network-engineer/blob/main/lab11(lec26)_ACL/Screenshot_9.jpg)  
 ![](https://github.com/yksie/Network-engineer/blob/main/lab11(lec26)_ACL/Screenshot_10.jpg)  
@@ -88,17 +88,17 @@ R1(config)# **ip http authentication local**
 Примечание. Возможно, вам придется отключить брандмауэр ПК для работы ping  
 
 
-| От      | Протокол    |    Назначение   |  
-| :------ |:-----------:| :--------------:|   
-| R1      | G0/0/1    | 10.53.0.1   |  
-| R1      | Loopback 1| 172.16.1.1  |  
-| PC-A| 	Ping	| 10.40.0.10|   
-| PC-A| 	Ping	| 10.20.0.1| 
-| PC-B| 	Ping	| 10.30.0.10| 
-| PC-B| 	Ping	| 10.20.0.1| 
-| PC-B| 	Ping	| 172.16.1.1| 
-| PC-B| 	SSH 	| 10.20.0.1 | 
-| PC-B| 	SSH	  | 172.16.1.1 | 
+| От      | Протокол    |    Назначение   |  Результат|
+| :------ |:-----------:| :--------------:|   -------------:| 
+| R1      | G0/0/1    | 10.53.0.1   |   Успех| 
+| R1      | Loopback 1| 172.16.1.1  |   Успех| 
+| PC-A| 	Ping	|       10.40.0.10  |   Успех| 
+| PC-A| 	Ping	|       10.20.0.1   |   Успех| 
+| PC-B| 	Ping	|       10.30.0.10  |   Успех| 
+| PC-B| 	Ping	| 10.20.0.1|  Успех| 
+| PC-B| 	Ping	| 172.16.1.1|  Успех| 
+| PC-B| 	SSH 	| 10.20.0.1 |  Успех| 
+| PC-B| 	SSH	  | 172.16.1.1 |  Успех| 
 
 ![](https://github.com/yksie/Network-engineer/blob/main/lab11(lec26)_ACL/Screenshot_12.jpg)  
 
@@ -145,7 +145,7 @@ R1(config-subif)#**ip access-group Policy4 in**
 
 #### Убедитесь, что политики безопасности применяются развернутыми списками доступа.
 
-Выполните следующие тесты. Ожидаемые результаты показаны в таблице:
+Выполнены следующие тесты. Результаты показаны в таблице:
 
 
 | От      | Протокол    |    Назначение   |Результат|
@@ -158,3 +158,4 @@ R1(config-subif)#**ip access-group Policy4 in**
 | PC-B	| SSH  	| 10.20.0.4	  | Сбой | 
 | PC-B	| SSH 	| 172.16.1.1	| Успех| 
 
+Фактические результаты совпали с ожидаемыми.
