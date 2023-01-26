@@ -24,8 +24,6 @@ ___
 
 Произведено создание сети и настройка основных параметров устройства, настройка сетей VLAN на коммутаторах, настройка магистральных каналов
 
-![](https://github.com/yksie/Network-engineer/blob/main/lab11(lec26)_ACL/Screenshot_5.jpg)
-
 ![](https://github.com/yksie/Network-engineer/blob/main/lab11(lec26)_ACL/Screenshot_6.jpg)
 
 Вручную настройте магистральный интерфейс F0/5 на коммутаторе S1.
