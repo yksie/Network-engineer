@@ -105,42 +105,36 @@ R1(config)# **ip http authentication local**
 ### Часть 2. Настройка и проверка списков контроля доступа (ACL)   
 При проверке базового подключения компания требует реализации следующих политик безопасности:  
 
-Политика1. Сеть Sales не может использовать SSH в сети Management (но в  другие сети SSH разрешен).  
-__не реализовано в цпт, но настраивается следующим образом:__  
+Политика 1. Сеть Sales не может использовать SSH в сети Management (но в  другие сети SSH разрешен). 
 
-R1(config)#**ip access-list extended Policy1**   
-R1(config-ext-nacl)#**permit ssh 10.20.0.0 0.0.0.255 eq 22**  
-
-Политика 2. Сеть Sales не имеет доступа к IP-адресам в сети Management с помощью любого веб-протокола (HTTP/HTTPS). Сеть Sales также не имеет доступа к интерфейсам R1 с помощью любого веб-протокола. Разрешён весь другой веб-трафик (обратите внимание — Сеть Sales  может получить доступ к интерфейсу Loopback 1 на R1).  
-
-**ip access-list extended Policy2**  
-**permit http 10.30.0.0 0.0.0.255 any**  
-**deny http 10.20.0.0 0.0.0.255 any**  
-**deny https 10.20.0.0 0.0.0.255 any**  
-R1(config-ext-nacl)#**int g0/0/1.20**  
-R1(config-subif)#**ip access-group Policy2 out**  
+Политика 2. Сеть Sales не имеет доступа к IP-адресам в сети Management с помощью любого веб-протокола (HTTP/HTTPS). Сеть Sales также не имеет доступа к интерфейсам R1 с помощью любого веб-протокола. Разрешён весь другой веб-трафик (обратите внимание — Сеть Sales  может получить доступ к интерфейсу Loopback 1 на R1).
 
 Политика3. Сеть Sales не может отправлять эхо-запросы ICMP в сети Operations или Management. Разрешены эхо-запросы ICMP к другим адресатам. 
 
-R1(config)#**ip access-list extended Policy3**  
-R1(config-ext-nacl)#**deny icmp 10.40.0.0 0.0.0.255 10.30.0.0 0.0.0.255 echo**  
+R1(config)#**ip access-list extended Policy1-3**  
+R1(config-ext-nacl)#**deny ssh 10.40.0.0 0.0.0.255 10.30.0.0 0.0.0.255**  
+R1(config-ext-nacl)#**deny http 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255**  
+R1(config-ext-nacl)#**deny https 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255**  
 R1(config-ext-nacl)#**deny icmp 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255 echo**  
-R1(config-ext-nacl)#**200 permit icmp any any**  
+R1(config-ext-nacl)#**deny icmp 10.40.0.0 0.0.0.255 10.30.0.0 0.0.0.255 echo**  
+R1(config-ext-nacl)#**200 permit ip any any**  
 R1(config-ext-nacl)#**int g0/0/1.40**  
-R1(config-subif)#**ip access-group Policy3 in**  
+R1(config-subif)#**ip access-group Policy1-3 in**  
+
 
 ![](https://github.com/yksie/Network-engineer/blob/main/lab11(lec26)_ACL/Screenshot_13.jpg)
 
 ![](https://github.com/yksie/Network-engineer/blob/main/lab11(lec26)_ACL/Screenshot_14.jpg)
 
 
-
 Политика 4: Cеть Operations  не может отправлять ICMP эхозапросы в сеть Sales. Разрешены эхо-запросы ICMP к другим адресатам.  
+
 R1(config)#**ip access-list extended Policy4**  
 R1(config-ext-nacl)#**deny icmp 10.30.0.0 0.0.0.255 10.40.0.0 0.0.0.255 echo**  
-R1(config-ext-nacl)#**200 permit icmp any any**  
+R1(config-ext-nacl)#**200 permit ip any any**  
 R1(config-ext-nacl)#**int g0/0/1.30**  
 R1(config-subif)#**ip access-group Policy4 in**  
+  
 
 
 #### Убедитесь, что политики безопасности применяются развернутыми списками доступа.
