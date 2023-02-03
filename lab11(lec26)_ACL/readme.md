@@ -109,14 +109,18 @@ R1(config)# **ip http authentication local**
 
 Политика 2. Сеть Sales не имеет доступа к IP-адресам в сети Management с помощью любого веб-протокола (HTTP/HTTPS). Сеть Sales также не имеет доступа к интерфейсам R1 с помощью любого веб-протокола. Разрешён весь другой веб-трафик (обратите внимание — Сеть Sales  может получить доступ к интерфейсу Loopback 1 на R1).
 
-Политика3. Сеть Sales не может отправлять эхо-запросы ICMP в сети Operations или Management. Разрешены эхо-запросы ICMP к другим адресатам. 
+Политика 3. Сеть Sales не может отправлять эхо-запросы ICMP в сети Operations или Management. Разрешены эхо-запросы ICMP к другим адресатам. 
 
 R1(config)#**ip access-list extended Policy1-3**  
-R1(config-ext-nacl)#**deny ssh 10.40.0.0 0.0.0.255 10.30.0.0 0.0.0.255**  
-R1(config-ext-nacl)#**deny http 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255**  
-R1(config-ext-nacl)#**deny https 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255**  
+R1(config-ext-nacl)#**deny __tcp__ 10.40.0.0 0.0.0.255 10.30.0.0 0.0.0.255 __eq 22__**  
+R1(config-ext-nacl)#**deny __tcp__ 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255 __eq 80__**  
+R1(config-ext-nacl)#**deny __tcp__ 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255 __eq 443__**  
 R1(config-ext-nacl)#**deny icmp 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255 echo**  
 R1(config-ext-nacl)#**deny icmp 10.40.0.0 0.0.0.255 10.30.0.0 0.0.0.255 echo**  
+__R1(config-ext-nacl)#**deny tcp 10.40.0.0 0.0.0.255 host 10.30.0.1 eq 80**__  
+__R1(config-ext-nacl)#**deny tcp 10.40.0.0 0.0.0.255 host 10.30.0.1 eq 443**__  
+__R1(config-ext-nacl)#**deny tcp 10.40.0.0 0.0.0.255 host 10.40.0.1 eq 80**__   
+__R1(config-ext-nacl)#**deny tcp 10.40.0.0 0.0.0.255 host 10.40.0.1 eq 443**__   
 R1(config-ext-nacl)#**200 permit ip any any**  
 R1(config-ext-nacl)#**int g0/0/1.40**  
 R1(config-subif)#**ip access-group Policy1-3 in**  
@@ -134,6 +138,7 @@ R1(config-ext-nacl)#**deny icmp 10.30.0.0 0.0.0.255 10.40.0.0 0.0.0.255 echo**
 R1(config-ext-nacl)#**200 permit ip any any**  
 R1(config-ext-nacl)#**int g0/0/1.30**  
 R1(config-subif)#**ip access-group Policy4 in**  
+
   
 
 
