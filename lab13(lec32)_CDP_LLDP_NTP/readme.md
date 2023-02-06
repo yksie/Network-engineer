@@ -97,7 +97,7 @@ Sending CDP packets every 60 seconds
 Holdtime is 180 seconds  
 Вопрос:    
 Сколько интерфейсов участвует в объявлениях CDP? Какие из них активны?  
-**4, 1**  
+**4, G0/0/1**  
 На R1 используйте соответствующую команду show cdp, чтобы определить версию IOS, используемую на S1.  
 
 R1#**sh cdp entry S1**  
@@ -295,7 +295,7 @@ S1#**sh ntp associations**
 
 address ref clock st when poll reach delay offset disp  
 *~10.22.0.1 127.127.1.1 4 0 16 17 0.00 0.00 0.12  
-* sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured  
+sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured  
   
 Выполните соответствующую команду на S1 и S2, чтобы просмотреть настроенное время.
 
